@@ -17,8 +17,9 @@ Given the root to a binary tree, count the number of unival subtrees.
                 n7
 """
 
+
 # DFS -> depth first search (busca em profundidade): recursão/iterativa (lista)
-# BFS -> breath first search (busca em largura): iterativa (lista)
+# BFS -> breadth first search (busca em largura): iterativa (lista)
 
 
 class Node:
@@ -27,6 +28,24 @@ class Node:
         self.left = None
         self.right = None
         self.parent = None
+
+    def dfs(self, callback):
+        callback(self)
+
+        if self.left:
+            self.left.dfs(callback)
+        if self.right:
+            self.right.dfs(callback)
+
+    def unival(self):
+        right_all_true = left_all_true = True
+
+        if self.left:
+            left_all_true = self.value == self.left.value and self.left.unival()
+        if self.right:
+            right_all_true = self.value == self.right.value and self.right.unival()
+
+        return right_all_true and left_all_true
 
 
 """
@@ -40,24 +59,14 @@ Passos:
     - Volta ao passo 1
 """
 
-
-def dfs(node: Node):
-    print(node.value)  # Acessa nó
-
-    if node.left:  # Tenta acessar filho a esquerda, caso não, volta pro anterior
-        dfs(node.left)  # Se tem, entra no filho e ele vira o "raíz"
-    if node.right:  # Tenta acessar filho a direita, caso não, volta pro anterior
-        dfs(node.right)  # Se tem, entra no filho e ele vira o "raíz"
-
-
-n1 = Node(1)
-n2 = Node(2)
-n3 = Node(3)
-n4 = Node(4)
-n5 = Node(5)
-n6 = Node(6)
-n7 = Node(7)
-n8 = Node(8)
+n1 = Node(0)
+n2 = Node(0)
+n3 = Node(1)
+n4 = Node(1)
+n5 = Node(1)
+n6 = Node(1)
+n7 = Node(1)
+n8 = Node(1)
 
 n1.left = n2
 n1.right = n3
@@ -81,5 +90,17 @@ n7.parent = n4
 
 n8.parent = n5
 
+n1.unival()
 
-dfs(n1)
+
+count = 0
+
+
+def count_univals(node: Node):
+    if node.unival():
+        global count
+        count += 1
+
+
+n1.dfs(count_univals)
+print(count)
