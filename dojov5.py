@@ -104,3 +104,5 @@ def count_univals(node: Node):
 
 n1.dfs(count_univals)
 print(count)
+
+n1.dfs(lambda node: print(node.value))
