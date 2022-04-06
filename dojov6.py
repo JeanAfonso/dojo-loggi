@@ -10,7 +10,7 @@ listaB=[7,8,2,5,9,10]
 
 def check_cpf(listaA, listaB):
 
-    dicionario = {a: True for a in listaA } # dict comprehens
+    dicionario = {a: True for a in listaA} # dict comprehension
 
     print(dicionario)
 
@@ -18,6 +18,6 @@ def check_cpf(listaA, listaB):
         if b in dicionario.keys():
             print(b)
 
-print(check_cpf(listaA, listaB))
+check_cpf(listaA, listaB)
 
 

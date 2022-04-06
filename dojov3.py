@@ -8,7 +8,6 @@ v = [10, 5, 2, 7]
 k = 12
 
 
-
 def testearray(v, k):
     for i in range(len(v) - 1):  # N
         for j in range(i + 1, len(v)):  # N
